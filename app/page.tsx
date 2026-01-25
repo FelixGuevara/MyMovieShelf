@@ -13,9 +13,9 @@ export default function Home() {
           priority
         />
 
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left w-full">
+        <div className="flex flex-col items-center text-center sm:items-start sm:text-left w-full">
           <h1 className="w-full text-3xl font-semibold leading-10 tracking-tight text-[rgb(0,74,156)]">
-            Welcome to initial deployment of MyMovieShelf.
+            MyMovieShelf initial deployment.
           </h1>
 
           <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
