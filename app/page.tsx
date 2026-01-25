@@ -12,21 +12,24 @@ export default function Home() {
           height={20}
           priority
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
+
+        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left w-full">
+          <h1 className="w-full text-3xl font-semibold leading-10 tracking-tight text-blue-600">
             Welcome to initial deployment of MyMovieShelf.
           </h1>
+
           <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            MyMovieShelf is a modern, cloud hosted web application designed for movie enthusiasts who want to catalog, organize, and showcase their personal film collections. 
+            MyMovieShelf is a modern, cloud hosted web application designed for movie enthusiasts who want to catalog, organize, and showcase their personal film collections.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+
+        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left w-full">
             <Image
               className="dark:invert"
               src="/movie-camera.svg"
               alt="camera"
-              width={32}
-              height={32}
+              width={100}
+              height={100}
             />
         </div>
       </main>
