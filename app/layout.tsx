@@ -24,12 +24,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+<html lang="en"> 
+  <body className="flex flex-col min-h-screen"> 
+    <main className="flex-grow"> {children} 
+      
+    </main>
+
+      
+    <footer className="mt-auto p-4 bg-[rgb(0,74,156)]"> 
+      <div className="text-center pb-3 text-white"> 
+          <span> © {new Date().getFullYear()} Berry Global Inc. All rights reserved. </span> 
+          </div> 
+    </footer> 
+  </body> 
+</html>
   );
 }
