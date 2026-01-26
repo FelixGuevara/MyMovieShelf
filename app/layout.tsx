@@ -31,10 +31,10 @@ export default function RootLayout({
 
       {/* Header */}
         <header className="w-full p-4 bg-[rgb(0,76,157)] text-white">
-          <div className="max-w-6xl mx-auto flex items-center justify-between">
+          <div className="max-w-6xl mx-auto flex items-center justify-start gap-10">
             {/* Logo */}
             <Link href="/" className="flex items-center">
-              <Image src="/movie-camera.svg" alt="Home" width={60} height={60} className="object-contain" />
+              <Image src="/movie-camera.svg" alt="Home" width={70} height={70} className="object-contain" />
             </Link>
 
             <nav className="flex gap-6 text-sm">
