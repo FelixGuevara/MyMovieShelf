@@ -37,7 +37,7 @@ export default function RootLayout({
               <Image src="/movie-camera.svg" alt="Home" width={70} height={70} className="object-contain" />
             </Link>
 
-            <nav className="flex gap-6 text-sm">
+            <nav className="flex gap-8 text-lg font-bold">
               <a href="/" className="hover:underline">My Movie Library</a>
               <a href="/" className="hover:underline">My Movie Shelfs</a>
               <a href="/about" className="hover:underline">About Us</a>
