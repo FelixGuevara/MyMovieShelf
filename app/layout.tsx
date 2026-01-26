@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Image from "next/image"; 
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,16 +30,18 @@ export default function RootLayout({
   <body className="flex flex-col min-h-screen"> 
 
       {/* Header */}
-        <header className="w-full p-4 bg-[rgb(0,74,156)] text-white">
+        <header className="w-full p-4 bg-[rgb(0,76,157)] text-white">
           <div className="max-w-6xl mx-auto flex items-center justify-between">
-            <h1 className="text-xl font-semibold tracking-wide">
-              MyMovieShelf
-            </h1>
+            {/* Logo */}
+            <Link href="/" className="flex items-center">
+              <Image src="/movie-camera.svg" alt="Home" width={60} height={60} className="object-contain" />
+            </Link>
 
             <nav className="flex gap-6 text-sm">
-              <a href="/" className="hover:underline">Home</a>
-              <a href="/about" className="hover:underline">About</a>
-              <a href="/contact" className="hover:underline">Contact</a>
+              <a href="/" className="hover:underline">My Movie Library</a>
+              <a href="/" className="hover:underline">My Movie Shelfs</a>
+              <a href="/about" className="hover:underline">About Us</a>
+              <a href="/contact" className="hover:underline">User Manager</a>
             </nav>
           </div>
         </header>
@@ -48,9 +52,9 @@ export default function RootLayout({
         </main>
 
       {/* Footer */}
-    <footer className="mt-auto p-4 bg-[rgb(0,74,156)]"> 
+    <footer className="mt-auto p-4 bg-[rgb(0,76,157)]"> 
       <div className="text-center pb-3 text-white"> 
-          <span> © {new Date().getFullYear()} MyMovieShelf Inc. All rights reserved. </span> 
+          <span>Copyright © {new Date().getFullYear()} MyMovieShelf. All rights reserved. </span> 
           </div> 
     </footer> 
   </body> 
