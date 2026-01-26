@@ -53,7 +53,7 @@ export default function RootLayout({
 
       {/* Footer */}
     <footer className="mt-auto p-4 bg-[rgb(0,76,157)]"> 
-      <div className="text-center pb-3 text-white"> 
+      <div className="text-center pb-3 text-sm text-white"> 
           <span>Copyright © {new Date().getFullYear()} MyMovieShelf. All rights reserved. </span> 
           </div> 
     </footer> 
