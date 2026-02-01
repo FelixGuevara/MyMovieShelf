@@ -9,9 +9,6 @@ export const metadata: Metadata = {
     "Learn about MyMovieShelf—our mission, the team, and how we help you organize and enjoy your personal movie collection.",
   openGraph: {
     title: "About Us • MyMovieShelf",
-    description:
-      "Learn about MyMovieShelf—our mission, the team, and how we help you organize and enjoy your personal movie collection.",
-    url: "https://your-domain.com/about", // update if you have a real domain
     siteName: "MyMovieShelf",
     images: [{ url: "/og-mymovieshelf.png", width: 1200, height: 630, alt: "MyMovieShelf" }],
     locale: "en_US",
@@ -54,17 +51,6 @@ export default function AboutPage() {
             <li>Privacy by default</li>
           </ul>
         </div>
-      </section>
-
-      {/* Feature highlight */}
-      <section className="mb-10 rounded-lg border bg-white p-6 shadow-sm">
-        <h2 className="mb-2 text-2xl font-bold text-gray-900">What You Can Do</h2>
-        <ul className="list-inside list-disc space-y-1 text-gray-700">
-          <li>Create shelves for genres, directors, years, or custom themes.</li>
-          <li>Track watch status, ratings, and personal notes.</li>
-          <li>Search and filter your collection instantly.</li>
-          <li>See quick insights—most-watched directors, top genres, and more.</li>
-        </ul>
       </section>
 
       {/* Team / Tech (customize this to your reality) */}
