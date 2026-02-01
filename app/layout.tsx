@@ -47,7 +47,7 @@ export default function RootLayout({
                 <a href="/" className="hover:underline">My Movie Library</a>
                 <a href="/" className="hover:underline">My Movie Shelfs</a>
                 <a href="/about" className="hover:underline">About Us</a>
-                <a href="/contact" className="hover:underline">User Manager</a>
+                <a href="/userManager" className="hover:underline">User Manager</a>
               </nav>
             </div>
 
