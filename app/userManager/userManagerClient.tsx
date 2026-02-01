@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../components/ui/select';
+import { AddUserModal } from './addUserModal';
 
 
 interface User {
@@ -100,6 +101,7 @@ const initialUsers: User[] = [
 
 export default function UserManagerPage() {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    
     const handleAddNewUser = () => {
         setIsAddModalOpen(true);
     };
