@@ -37,7 +37,7 @@ export default function RootLayout({
         <header className="w-full p-4 bg-[rgb(0,76,157)] text-white">
           <div className="max-w-6xl mx-auto flex items-center justify-between">
             <div className="flex items-center gap-10">
-              
+
               {/* Logo */}
               <Link href="/" className="flex items-center">
                 <Image src="/movie-camera.svg" alt="Home" width={70} height={70} className="object-contain" />
@@ -53,7 +53,7 @@ export default function RootLayout({
 
             {/* Right: Hello label */}
             <label className="form-check-label">
-              <span className="hello-label">Hello, @{userName}</span>
+              <span className="hello-label">Hello, {userName}</span>
             </label>
 
           </div>
