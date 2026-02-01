@@ -96,7 +96,7 @@ const initialUsers: User[] = [
   }
 ];
 
-export default function AboutPage() {
+export default function UserManagerPage() {
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
     const handleAddNewUser = () => {
         setIsAddModalOpen(true);
