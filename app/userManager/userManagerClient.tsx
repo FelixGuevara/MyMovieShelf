@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from '../components/ui/select';
 import { AddUserModal } from './addUserModal';
-
+import { toast } from 'sonner';
 
 interface User {
   id: string;
@@ -100,8 +100,9 @@ const initialUsers: User[] = [
 ];
 
 export default function UserManagerPage() {
+    const [users, setUsers] = useState<User[]>(initialUsers);
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-    
+
     const handleAddNewUser = () => {
         setIsAddModalOpen(true);
     };
@@ -109,6 +110,12 @@ export default function UserManagerPage() {
     const handleCloseModal = () => {
         setIsAddModalOpen(false);
     };
+
+    const handleAddUser = (newUser: User) => {
+      setUsers(prev => [newUser, ...prev]);
+      toast.success(`${newUser.name} has been added successfully!`);
+  };
+
   return (
         <div className="flex-1 bg-gray-50 h-full flex flex-col">
             <div className="flex-1 p-6">
@@ -124,6 +131,13 @@ export default function UserManagerPage() {
                     </Button>
                 </div>
             </div>
+
+            {/* Add User Modal */}
+            <AddUserModal 
+              isOpen={isAddModalOpen}
+              onClose={handleCloseModal}
+              onAddUser={handleAddUser}
+      />
         </div>
   );
 }
