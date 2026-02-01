@@ -2,8 +2,8 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="flex h-auto items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex w-full max-w-3xl flex-col items-center justify-center py-16 px-16 bg-white dark:bg-black sm:items-start">
+    <div className="mx-auto max-w-4xl px-4 py-10">
+      <main className="flex w-full max-w-3xl flex-col items-center justify-center py-16 px-16 dark:bg-black sm:items-start">
       
         <div className="mx-auto max-w-4xl px-4 py-10">
           {/* Top section */}
