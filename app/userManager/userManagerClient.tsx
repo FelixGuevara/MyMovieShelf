@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../components/ui/select';
+import { UserTable } from './userTable';
 import { AddUserModal } from './addUserModal';
 import { toast } from 'sonner';
 
@@ -119,6 +120,26 @@ export default function UserManagerPage() {
       toast.success(`${newUser.name} has been added successfully!`);
     };
 
+    const handleEditUser = (user: User) => {
+    toast.info(`Edit functionality for ${user.name} will be implemented.`);
+    };
+
+    const handleViewUser = (user: User) => {
+    toast.info(`Viewing details for ${user.name}.`);
+    };
+
+    const handleResetPassword = (user: User) => {
+    toast.success(`Password reset email sent to ${user.email}.`);
+    };
+
+    const handleDeleteUser = (userId: string) => {
+    const user = users.find(u => u.id === userId);
+    setUsers(prev => prev.filter(u => u.id !== userId));
+    if (user) {
+      toast.success(`${user.name} has been deleted successfully.`);
+    }
+    };
+
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
     };
@@ -192,6 +213,18 @@ export default function UserManagerPage() {
                       </SelectContent>
                     </Select>
                   </div>
+
+                  {/* User Table */}
+                  <div className="flex-1">
+                    <UserTable 
+                        users={filteredUsers}
+                        onEditUser={handleEditUser}
+                        onViewUser={handleViewUser}
+                        onResetPassword={handleResetPassword}
+                        onDeleteUser={handleDeleteUser}
+                    />
+                  </div>
+
                 </div>
             </div>
 

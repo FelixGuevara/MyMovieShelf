@@ -110,7 +110,7 @@ export function AddUserModal({ isOpen, onClose, onAddUser }: AddUserModalProps) 
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Admin">Admin</SelectItem>
-                <SelectItem value="Enthusiast">Teacher</SelectItem>
+                <SelectItem value="Enthusiast">Enthusiast</SelectItem>
               </SelectContent>
             </Select>
           </div>
