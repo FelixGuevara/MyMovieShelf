@@ -101,6 +101,9 @@ const initialUsers: User[] = [
 
 export default function UserManagerPage() {
     const [users, setUsers] = useState<User[]>(initialUsers);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [roleFilter, setRoleFilter] = useState('all');
+    const [statusFilter, setStatusFilter] = useState('all');
     const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
     const handleAddNewUser = () => {
@@ -114,7 +117,21 @@ export default function UserManagerPage() {
     const handleAddUser = (newUser: User) => {
       setUsers(prev => [newUser, ...prev]);
       toast.success(`${newUser.name} has been added successfully!`);
-  };
+    };
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    };
+
+      // Filter users based on search and filters
+    const filteredUsers = users.filter(user => {
+    const matchesSearch = user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                         user.email.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesRole = roleFilter === 'all' || user.role.toLowerCase() === roleFilter.toLowerCase();
+    const matchesStatus = statusFilter === 'all' || user.status.toLowerCase() === statusFilter.toLowerCase();
+    
+    return matchesSearch && matchesRole && matchesStatus;
+  });
 
   return (
         <div className="flex-1 bg-gray-50 h-full flex flex-col">
@@ -130,6 +147,52 @@ export default function UserManagerPage() {
                         Add New User
                     </Button>
                 </div>
+
+                {/* User Directory Section - Full Height */}
+                <div className="bg-white rounded-lg border border-gray-200 p-6 flex-1 flex flex-col">
+                  <div className="mb-6">
+                    <h2 className="text-lg text-gray-900 mb-2">User Directory</h2>
+                    <p className="text-gray-600">Search and filter system users ({filteredUsers.length} users)</p>
+                  </div>
+
+                  {/* Search and Filters */}
+                  <div className="flex flex-wrap gap-4 mb-6">
+                    <div className="flex-1 min-w-80">
+                      <div className="relative">
+                        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                          <Input
+                            type="text"
+                            placeholder="Search by name or email..."
+                            value={searchQuery}
+                            onChange={handleSearch}
+                            className="pl-10 bg-gray-50 border-gray-200"
+                          />
+                      </div>
+                    </div>
+            
+                    <Select value={roleFilter} onValueChange={setRoleFilter}>
+                      <SelectTrigger className="w-40 bg-gray-50 border-gray-200">
+                        <SelectValue placeholder="All Roles" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Roles</SelectItem>
+                        <SelectItem value="enthusiast">Enthusiast</SelectItem>
+                        <SelectItem value="admin">Admin</SelectItem>
+                      </SelectContent>
+                    </Select>
+
+                    <Select value={statusFilter} onValueChange={setStatusFilter}>
+                      <SelectTrigger className="w-40 bg-gray-50 border-gray-200">
+                        <SelectValue placeholder="All Status" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Status</SelectItem>
+                        <SelectItem value="active">Active</SelectItem>
+                        <SelectItem value="inactive">Inactive</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
             </div>
 
             {/* Add User Modal */}
@@ -137,7 +200,7 @@ export default function UserManagerPage() {
               isOpen={isAddModalOpen}
               onClose={handleCloseModal}
               onAddUser={handleAddUser}
-      />
+            />
         </div>
   );
 }

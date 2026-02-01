@@ -110,21 +110,9 @@ export function AddUserModal({ isOpen, onClose, onAddUser }: AddUserModalProps) 
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="Admin">Admin</SelectItem>
-                <SelectItem value="Teacher">Teacher</SelectItem>
-                <SelectItem value="Student">Student</SelectItem>
+                <SelectItem value="Enthusiast">Teacher</SelectItem>
               </SelectContent>
             </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="class">Class</Label>
-            <Input
-              id="class"
-              type="text"
-              placeholder="Enter class (e.g., SS2A, JS1B)"
-              value={formData.class}
-              onChange={(e) => handleInputChange('class', e.target.value)}
-            />
           </div>
 
           <div className="space-y-2">
