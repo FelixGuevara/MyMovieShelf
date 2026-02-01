@@ -24,3 +24,13 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.hello-label {
+  padding: 11px 20px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  background-color: #003F83;
+  font-size: 0.85rem;
+  color: white;
+}
+

@@ -25,24 +25,37 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+  // TODO: Replace with your real user name from auth/session
+  const userName = "Felix Guevara"; // fallback placeholder
+
   return (
 <html lang="en"> 
   <body className="flex flex-col min-h-screen"> 
 
       {/* Header */}
         <header className="w-full p-4 bg-[rgb(0,76,157)] text-white">
-          <div className="max-w-6xl mx-auto flex items-center justify-start gap-10">
-            {/* Logo */}
-            <Link href="/" className="flex items-center">
-              <Image src="/movie-camera.svg" alt="Home" width={70} height={70} className="object-contain" />
-            </Link>
+          <div className="max-w-6xl mx-auto flex items-center justify-between">
+            <div className="flex items-center gap-10">
+              
+              {/* Logo */}
+              <Link href="/" className="flex items-center">
+                <Image src="/movie-camera.svg" alt="Home" width={70} height={70} className="object-contain" />
+              </Link>
 
-            <nav className="flex gap-8 text-lg font-bold">
-              <a href="/" className="hover:underline">My Movie Library</a>
-              <a href="/" className="hover:underline">My Movie Shelfs</a>
-              <a href="/about" className="hover:underline">About Us</a>
-              <a href="/contact" className="hover:underline">User Manager</a>
-            </nav>
+              <nav className="flex gap-8 text-lg font-bold">
+                <a href="/" className="hover:underline">My Movie Library</a>
+                <a href="/" className="hover:underline">My Movie Shelfs</a>
+                <a href="/about" className="hover:underline">About Us</a>
+                <a href="/contact" className="hover:underline">User Manager</a>
+              </nav>
+            </div>
+
+            {/* Right: Hello label */}
+            <label className="form-check-label">
+              <span className="hello-label">Hello, @{userName}</span>
+            </label>
+
           </div>
         </header>
 
