@@ -21,7 +21,7 @@ export default function AboutPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-10">
       {/* Top section */}
-      <section className="mb-10">
+      <section className="mb-6">
         <h1 className="text-4xl font-extrabold tracking-tight text-gray-900">
           About <span className="text-[rgb(0,76,157)]">MyMovieShelf</span>
         </h1>
@@ -33,7 +33,7 @@ export default function AboutPage() {
       </section>
 
       {/* Mission & Values */}
-      <section className="mb-10 grid gap-6 md:grid-cols-2">
+      <section className="mb-6 grid gap-6 md:grid-cols-2">
         <div className="rounded-lg border bg-white p-6 shadow-sm">
           <h2 className="mb-2 text-2xl font-bold text-gray-900">Our Mission</h2>
           <p className="text-gray-700">
@@ -54,7 +54,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team / Tech (customize this to your reality) */}
-      <section className="mb-10 grid gap-6 md:grid-cols-3">
+      <section className="mb-6 grid gap-6 md:grid-cols-3">
         <div className="rounded-lg border bg-white p-6 shadow-sm">
           <Image
             src="/movie-camera.svg"
