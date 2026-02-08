@@ -10,9 +10,9 @@ import {
 export default function Home() {
   return (
     <div className="mx-auto max-w-4xl py-10">
-      <main className="flex w-full max-w-3xl flex-col items-center justify-center py-10 dark:bg-black sm:items-start">
-      
-        <div className="mx-auto max-w-4xl py-10">
+      {/* Align left: remove justify-center and items-center */}
+      <main className="flex w-full max-w-3xl flex-col items-start py-10 dark:bg-black">
+        <div className="w-full">
           {/* Top section */}
           <section className="mb-6">
             <h3 className="text-4xl font-extrabold tracking-tight text-gray-900">
@@ -20,10 +20,13 @@ export default function Home() {
             </h3>
           </section>
 
-          
           {/* Action grid */}
           <section aria-label="Quick actions">
-            <div className="grid grid-cols-4 gap-3 sm:grid-cols-2 lg:grid-cols-1">
+            {/*
+              Want exactly two per row on typical screens?
+              Use grid-cols-1 on base (phones) and sm:grid-cols-2 from small breakpoint upward.
+            */}
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <ActionCard href="/movies" label="My Movie Library" icon={<Film className="h-5 w-5" />} />
               <ActionCard href="/stats" label="My Movie Shelfs" icon={<BarChart3 className="h-5 w-5" />} />
               <ActionCard href="/about" label="About Us" icon={<BookOpenText className="h-5 w-5" />} />
