@@ -3,6 +3,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  --bs-primary-rgb: 0, 76, 157;
 }
 
 @theme inline {
@@ -32,5 +34,31 @@ body {
   background-color: #003F83;
   font-size: 0.85rem;
   color: white;
+}
+
+.action-card {
+    height: 100%;
+    padding: 20px 24px;
+    border: 1px solid rgb(var(--bs-primary-rgb));
+    border-radius: 6px;
+    text-decoration: none;
+    transition: box-shadow .15s ease, transform .05s ease, color .3s ease, background-color .3s ease;
+    color: rgb(var(--bs-primary-rgb));
+    background: #fff;
+    text-align: left;
+}
+
+    .action-card:hover {
+        box-shadow: 0 6px 16px rgba(0,0,0,.08);
+        transform: translateY(-1px);
+        color: white;
+        background-color: rgb(var(--bs-primary-rgb));
+    }
+
+.action-card__icon img {
+    width: 28px;
+    height: 28px;
+    display: block;
+    flex: 0 0 auto;
 }
 
