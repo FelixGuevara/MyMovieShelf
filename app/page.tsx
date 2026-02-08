@@ -1,4 +1,11 @@
 import Image from "next/image";
+import { ActionCard } from "./components/actionCard";
+
+import {
+  Film, FolderOpenDot, ListChecks, Tags, UserRound, CalendarDays,
+  Star, Eye, BarChart3, Settings, Upload, BookOpenText
+} from "lucide-react";
+
 
 export default function Home() {
   return (
@@ -17,8 +24,19 @@ export default function Home() {
               genres, directors, and years—our goal is to make your library delightful and fast.
             </p>
           </section>
-        </div>
 
+          
+          {/* Action grid */}
+          <section aria-label="Quick actions">
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <ActionCard href="/stats" label="Stats" icon={<BarChart3 className="h-5 w-5" />} />
+              <ActionCard href="/directors" label="Directors" icon={<UserRound className="h-5 w-5" />} />
+              <ActionCard href="/movies" label="Movies" icon={<Film className="h-5 w-5" />} />
+              <ActionCard href="/settings" label="Settings" icon={<Settings className="h-5 w-5" />} />
+              <ActionCard href="/about" label="About" icon={<BookOpenText className="h-5 w-5" />} />
+            </div>
+          </section>
+        </div>
       </main>
     </div>
   );
