@@ -14,7 +14,7 @@ export default function Home() {
       <main className="flex w-full max-w-3xl flex-col items-start py-10 dark:bg-black">
         <div className="w-full">
           {/* Top section */}
-          <section className="mb-6">
+          <section className="mb-6 py-10">
             <h3 className="text-4xl font-extrabold tracking-tight text-gray-900">
               <span className="text-[rgb(0,76,157)]">What would you like to do?</span>
             </h3>
@@ -26,7 +26,7 @@ export default function Home() {
               Want exactly two per row on typical screens?
               Use grid-cols-1 on base (phones) and sm:grid-cols-2 from small breakpoint upward.
             */}
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               <ActionCard href="/movies" label="My Movie Library" icon={<Film className="h-5 w-5" />} />
               <ActionCard href="/stats" label="My Movie Shelfs" icon={<BarChart3 className="h-5 w-5" />} />
               <ActionCard href="/about" label="About Us" icon={<BookOpenText className="h-5 w-5" />} />
