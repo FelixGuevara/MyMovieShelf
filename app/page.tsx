@@ -27,7 +27,7 @@ export default function Home() {
               Use grid-cols-1 on base (phones) and sm:grid-cols-2 from small breakpoint upward.
             */}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              <ActionCard href="/movies" label="My Movie Library" icon={<Film className="h-5 w-5" />} />
+              <ActionCard href="/movieLibrary" label="My Movie Library" icon={<Film className="h-5 w-5" />} />
               <ActionCard href="/stats" label="My Movie Shelfs" icon={<BarChart3 className="h-5 w-5" />} />
               <ActionCard href="/about" label="About Us" icon={<BookOpenText className="h-5 w-5" />} />
               <ActionCard href="/userManager" label="User Manager" icon={<UserRound className="h-5 w-5" />} />
