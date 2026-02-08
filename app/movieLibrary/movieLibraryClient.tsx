@@ -11,6 +11,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '../components/ui/select';
+import { MovieTable } from './movieTable';
+import { toast } from 'sonner';
 
 interface Movie {
   id: string;
@@ -134,6 +136,22 @@ export default function MovieLibraryPage() {
         setIsAddModalOpen(false);
     };
 
+    const handleEditMovie = (movie: Movie) => {
+        toast.info(`Edit functionality for ${movie.title} will be implemented.`);
+    };
+
+    const handleViewMovie = (movie: Movie) => {
+        toast.info(`Viewing details for ${movie.title}.`);
+    };
+
+    const handleDeleteMovie = (movieId: string) => {
+        const movie = movies.find(m => m.id === movieId);
+        setMovies(prev => prev.filter(m => m.id !== movieId));
+        if (movie) {
+          toast.success(`${movie.title} has been deleted successfully.`);
+        }
+    };
+
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
     };
@@ -165,7 +183,7 @@ export default function MovieLibraryPage() {
                 <div className="bg-white rounded-lg border border-gray-200 p-6 flex-1 flex flex-col">
                   <div className="mb-6">
                     <h2 className="text-lg text-gray-900 mb-2">My Movie Collection</h2>
-                    <p className="text-gray-600">Search and filter your movie library({filteredMovies.length} movies)</p>
+                    <p className="text-gray-600">Search and filter your movie library ({filteredMovies.length} movies)</p>
                   </div>
 
                 {/* Search and Filters */}
@@ -210,8 +228,19 @@ export default function MovieLibraryPage() {
                     </Select>
                   </div>
 
+                  {/* User Table */}
+                  <div className="flex-1">
+                    <MovieTable 
+                        movies={filteredMovies}
+                        onEditMovie={handleEditMovie}
+                        onViewMovie={handleViewMovie}
+                        onDeleteMovie={handleDeleteMovie}
+                    />
+                  </div>
+
                 </div>
             </div>
+
         </div>
   );
 }
