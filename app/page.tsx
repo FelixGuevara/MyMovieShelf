@@ -16,7 +16,7 @@ export default function Home() {
           {/* Top section */}
           <section className="mb-6 py-10">
             <h3 className="text-4xl font-extrabold tracking-tight text-gray-900">
-              <span className="text-[rgb(0,76,157)]">What would you like to do?</span>
+              <span className="text-[rgb(0,76,157)]">What would you like to do today?</span>
             </h3>
           </section>
 
