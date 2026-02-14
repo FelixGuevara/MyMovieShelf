@@ -26,7 +26,7 @@ function DetailItem({ label, value }: { label: string; value: React.ReactNode })
 
 export default function MovieDetailsClient({ id }: { id: string }) {
   const router = useRouter();
-  const { getById } = useMovies();
+  const { getById, deleteMovie } = useMovies();
 
   console.log("Details page received id:", id);
   const movie = getById(id);
@@ -55,6 +55,7 @@ export default function MovieDetailsClient({ id }: { id: string }) {
 
   const handleDelete = () => {
     if (window.confirm(`Are you sure you want to delete ${movie.title}?`)) {
+         console.log("Details page received id:", movie.id);
       deleteMovie(movie.id);
       toast.success(`${movie.title} has been deleted successfully.`);
       router.push("/movies");
