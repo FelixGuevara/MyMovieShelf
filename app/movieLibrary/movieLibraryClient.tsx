@@ -35,7 +35,7 @@ export default function MovieLibraryPage() {
   };
 
   const handleViewMovie = (movie: Movie) => {
-    router.push(`/movies/${movie.id}`);
+    router.push(`/movieLibrary/${movie.id}`);
   };
 
   const handleDeleteMovie = (movieId: string) => {
