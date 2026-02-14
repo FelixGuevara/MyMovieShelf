@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Image from "next/image"; 
 import Link from "next/link";
+import { MovieProvider } from "./contexts/MovieProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,10 +60,12 @@ export default function RootLayout({
           </div>
         </header>
 
-        {/* Page content */}
-        <main className="flex-grow">
-          {children}
-        </main>
+
+      {/* Page content wrapped with MovieProvider */}
+        <MovieProvider>
+          <main className="flex-grow">{children}</main>
+        </MovieProvider>
+
 
       {/* Footer */}
     <footer className="mt-auto p-4 bg-[rgb(0,76,157)]"> 
