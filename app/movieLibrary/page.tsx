@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import MovieLibraryClient from "./movieLibraryClient";
 
+
 export default function UserManagerPage() {
   return (    
     <div className="min-h-screen bg-gray-50">
@@ -16,3 +17,4 @@ export default function UserManagerPage() {
     </div>
   );
 }
+

@@ -4,10 +4,10 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Pencil, Trash2 } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { MovieStatusBadge } from "../components/MovieStatusBadge";
-import { useMovies } from "../contexts/MovieProvider";
-import type { Movie } from "../types/movie";
+import { Button } from "../../components/ui/button";
+import { MovieStatusBadge } from "../../components/MovieStatusBadge";
+import { useMovies } from "../../contexts/MovieProvider";
+import type { Movie } from "../../types/movie";
 import { toast } from "sonner";
 
 function formatDate(value: string) {
