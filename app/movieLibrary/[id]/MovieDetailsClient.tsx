@@ -28,6 +28,7 @@ export default function MovieDetailsClient({ id }: { id: string }) {
   const router = useRouter();
   const { getById, deleteMovie } = useMovies();
 
+  console.log("Details page received id:", id);
   const movie = getById(id);
 
   if (!movie) {
