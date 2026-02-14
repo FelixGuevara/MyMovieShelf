@@ -26,7 +26,7 @@ function DetailItem({ label, value }: { label: string; value: React.ReactNode })
 
 export default function MovieDetailsClient({ id }: { id: string }) {
   const router = useRouter();
-  const { getById, deleteMovie } = useMovies();
+  const { getById } = useMovies();
 
   console.log("Details page received id:", id);
   const movie = getById(id);
