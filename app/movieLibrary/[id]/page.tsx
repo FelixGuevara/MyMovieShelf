@@ -11,6 +11,7 @@ export default function MovieDetailsPage({ params }: PageProps) {
  // if (!params.id || params.id.trim() === "") {
     //notFound(); // throws and renders the 404 page
   //}
+  console.log("[/movieLibrary/[id]] params:", params);
 
   const rawId = params?.id;
 
