@@ -2,7 +2,7 @@
 'use client';
 
 import React, { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { Search, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,6 +20,8 @@ import type { Movie } from "@/types/movie";
 
 export default function MovieLibraryPage() {
   const router = useRouter();
+  const pathname = usePathname();
+
   const { movies, deleteMovie } = useMovies();
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -36,7 +38,9 @@ export default function MovieLibraryPage() {
 
   const handleViewMovie = (movie: Movie) => {
     console.log("Navigating to id:", movie.id);
-    router.push(`/movies/[id]?id=${movie.id}`);
+
+    router.push(`${pathname}?${movie.id.toString()}`);
+    //router.push(`/movies/[id]?id=${movie.id}`);
   };
 
   const handleDeleteMovie = (movieId: string) => {
