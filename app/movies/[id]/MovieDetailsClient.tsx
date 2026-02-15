@@ -7,8 +7,28 @@ import { ArrowLeft, Pencil, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MovieStatusBadge } from "@/components/MovieStatusBadge";
 import { useMovies } from "@/contexts/MovieProvider";
-import type { Movie } from "@/types/movie";
 import { toast } from "sonner";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+type Status = "completed" | "pending" | "failed";
 
 function formatDate(value: string) {
   const d = new Date(value);
@@ -26,66 +46,240 @@ function DetailItem({ label, value }: { label: string; value: React.ReactNode })
 
 export default function MovieDetailsClient({ id }: { id: string }) {
   const router = useRouter();
-  const { movies, getById, deleteMovie } = useMovies();
+  const { getById, deleteMovie, editMovie } = useMovies();
 
-  // Helpful diagnostics while wiring things up
-  console.log("Details received id:", id);
-  console.log("Available ids:", movies.map((m) => m.id));
+  const normalizedId = String(id).trim();
+  const movie = getById(normalizedId);
 
-  const movie = getById(String(id).trim());
+  const [isEditOpen, setIsEditOpen] = React.useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = React.useState(false);
+  const [saving, setSaving] = React.useState(false);
+
+  // Local editable state (prefilled)
+  const [form, setForm] = React.useState(() => ({
+    title: movie?.title ?? "",
+    releaseYear: movie?.releaseYear ?? "",
+    runTime: movie?.runTime ?? "",
+    genre: movie?.genre ?? "",
+    director: movie?.director ?? "",
+    status: (movie?.status ?? "pending") as Status,
+  }));
+
+  React.useEffect(() => {
+    if (movie) {
+      setForm({
+        title: movie.title ?? "",
+        releaseYear: movie.releaseYear ?? "",
+        runTime: movie.runTime ?? "",
+        genre: movie.genre ?? "",
+        director: movie.director ?? "",
+        status: (movie.status ?? "pending") as Status,
+      });
+    }
+  }, [movie]);
 
   if (!movie) {
     return (
       <div className="p-4">
-        <Button variant="ghost" onClick={() => router.back()} className="mb-4">
+        <Button variant="ghost" onClick={() => router.back()} className="mb-4 cursor-pointer" type="button">
           <ArrowLeft className="mr-2 h-4 w-4" /> Back
         </Button>
         <div className="rounded-lg border border-gray-200 bg-white p-6">
           <h1 className="text-lg font-semibold text-gray-900">Movie not found</h1>
           <p className="mt-2 text-gray-600">
-            We couldn't find a movie with id <span className="font-mono">{id}</span>.
+            We couldn't find a movie with id <span className="font-mono">{normalizedId}</span>.
           </p>
         </div>
       </div>
     );
   }
 
-  const handleEdit = () => {
-    toast.info(`Edit functionality for ${movie.title} will be implemented.`);
-    // Later: router.push(`/movies/${movie.id}/edit`)
+  // ---- Edit handlers
+  const onChange =
+    (key: keyof typeof form) => (e: React.ChangeEvent<HTMLInputElement>) => {
+      setForm((f) => ({ ...f, [key]: e.target.value }));
+    };
+
+  const onStatusChange = (value: string) => {
+    setForm((f) => ({ ...f, status: value as Status }));
   };
 
-  const handleDelete = () => {
-    if (window.confirm(`Are you sure you want to delete ${movie.title}?`)) {
-      deleteMovie(movie.id);
-      toast.success(`${movie.title} has been deleted successfully.`);
-      router.push("/movies"); // ← return to your list page
+  const submitEdit = async () => {
+    if (!form.title.trim()) {
+      toast.error("Title is required.");
+      return;
     }
+    if (!/^\d{4}$/.test(form.releaseYear.trim())) {
+      toast.error("Release year must be a 4-digit year (e.g., 1994).");
+      return;
+    }
+
+    setSaving(true);
+    try {
+      const updated = { ...movie, ...form, id: movie.id };
+      await Promise.resolve(editMovie(updated)); // supports sync/async
+      toast.success(`Saved changes to “${updated.title}”.`);
+      setIsEditOpen(false);
+    } catch (err) {
+      console.error("Edit failed:", err);
+      toast.error("Failed to save changes.");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // ---- Delete
+  const confirmDelete = () => {
+    deleteMovie(movie.id);
+    toast.success(`${movie.title} has been deleted successfully.`);
+    setIsDeleteOpen(false);
+    router.push("/movies");
   };
 
   return (
     <div className="p-4">
-      <Button variant="ghost" onClick={() => router.back()} className="mb-4">
+      <Button variant="ghost" onClick={() => router.back()} className="mb-4 cursor-pointer" type="button">
         <ArrowLeft className="mr-2 h-4 w-4" /> Back
       </Button>
 
       <div className="rounded-lg border border-gray-200 bg-white p-6">
         {/* Header */}
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 className="text-2xl font-semibold text-gray-900">{movie.title}</h1>
+          <div className="min-w-0">
+            <h1 className="truncate text-2xl font-semibold text-gray-900">{movie.title}</h1>
             <p className="text-gray-600">
               Added by {movie.user.name} on {formatDate(movie.date)}
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            <MovieStatusBadge status={movie.status} />
-            <Button variant="outline" onClick={handleEdit}>
-              <Pencil className="mr-2 h-4 w-4" /> Edit
-            </Button>
-            <Button variant="destructive" onClick={handleDelete}>
-              <Trash2 className="mr-2 h-4 w-4" /> Delete
-            </Button>
+
+          <div className="flex flex-wrap items-center gap-2">
+
+            {/* EDIT (Dialog) */}
+            <Dialog open={isEditOpen} onOpenChange={setIsEditOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="cursor-pointer" type="button">
+                  <Pencil className="mr-2 h-4 w-4" /> Edit
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Edit “{movie.title}”</DialogTitle>
+                </DialogHeader>
+
+                <div className="grid gap-4 py-2">
+                  <div className="grid gap-2">
+                    <Label htmlFor="title">Title</Label>
+                    <Input
+                      id="title"
+                      value={form.title}
+                      onChange={onChange("title")}
+                      placeholder="Movie title"
+                    />
+                  </div>
+
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    <div className="grid gap-2">
+                      <Label htmlFor="releaseYear">Release Year</Label>
+                      <Input
+                        id="releaseYear"
+                        inputMode="numeric"
+                        pattern="\d{4}"
+                        maxLength={4}
+                        value={form.releaseYear}
+                        onChange={onChange("releaseYear")}
+                        placeholder="1994"
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="runTime">Run Time</Label>
+                      <Input
+                        id="runTime"
+                        value={form.runTime}
+                        onChange={onChange("runTime")}
+                        placeholder="2h 22m"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid gap-2 sm:grid-cols-2">
+                    <div className="grid gap-2">
+                      <Label htmlFor="genre">Genre</Label>
+                      <Input
+                        id="genre"
+                        value={form.genre}
+                        onChange={onChange("genre")}
+                        placeholder="Drama"
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <Label htmlFor="director">Director</Label>
+                      <Input
+                        id="director"
+                        value={form.director}
+                        onChange={onChange("director")}
+                        placeholder="Frank Darabont"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid gap-2">
+                    <Label htmlFor="status">Status</Label>
+                    <Select value={form.status} onValueChange={onStatusChange}>
+                      <SelectTrigger id="status">
+                        <SelectValue placeholder="Select status" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="completed">Completed</SelectItem>
+                        <SelectItem value="pending">Pending</SelectItem>
+                        <SelectItem value="failed">Failed</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setIsEditOpen(false)} disabled={saving} type="button">
+                    Cancel
+                  </Button>
+                  <Button className="cursor-pointer" onClick={submitEdit} disabled={saving} type="button">
+                    {saving ? "Saving..." : "Save changes"}
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+
+            {/* DELETE (uses Dialog as a confirm) */}
+            <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+              <DialogTrigger asChild>
+                <Button
+                  variant="destructive"
+                  className="cursor-pointer bg-red-600 text-white hover:bg-red-700"
+                  type="button"
+                >
+                  <Trash2 className="mr-2 h-4 w-4" /> Delete
+                </Button>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Delete “{movie.title}”?</DialogTitle>
+                </DialogHeader>
+                <p className="text-sm text-gray-600">
+                  This action cannot be undone. This will permanently remove the movie from your library.
+                </p>
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setIsDeleteOpen(false)} type="button">
+                    Cancel
+                  </Button>
+                  <Button
+                    className="cursor-pointer bg-red-600 text-white hover:bg-red-700"
+                    onClick={confirmDelete}
+                    type="button"
+                  >
+                    Delete
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
           </div>
         </div>
 
