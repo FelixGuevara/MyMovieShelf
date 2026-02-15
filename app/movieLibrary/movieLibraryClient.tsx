@@ -4,19 +4,19 @@
 import React, { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Search, Plus } from "lucide-react";
-import { Button } from "../components/ui/button";
-import { Input } from "../components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../components/ui/select";
+} from "@/components/ui/select";
 import { MovieTable } from "./movieTable";
 import { toast } from "sonner";
-import { useMovies } from "../contexts/MovieProvider";
-import type { Movie } from "../types/movie";
+import { useMovies } from "@/contexts/MovieProvider";
+import type { Movie } from "@/types/movie";
 
 export default function MovieLibraryPage() {
   const router = useRouter();
