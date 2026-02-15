@@ -14,3 +14,4 @@ export default function MovieDetailsPage({ params }: PageProps) {
 
   return <MovieDetailsClient id={decodeURIComponent(params.id)} />;
 }
+``

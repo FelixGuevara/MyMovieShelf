@@ -1,9 +1,9 @@
+// app/movieLibrary/page.tsx
 import { Suspense } from "react";
-import MovieLibraryClient from "./movieLibraryClient";
+import MovieLibraryClient from "./movieLibraryClient"; // <-- alias path to the root file
 
-
-export default function UserManagerPage() {
-  return (    
+export default function MovieLibraryPage() {
+  return (
     <div className="min-h-screen bg-gray-50">
       {/* 12-column grid container */}
       <div className="mx-auto max-w-6xl px-4 py-6 grid grid-cols-12 gap-6">
@@ -17,4 +17,3 @@ export default function UserManagerPage() {
     </div>
   );
 }
-
