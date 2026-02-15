@@ -1,8 +1,8 @@
 // movieLibraryClient.tsx
-"use client";
+'use client';
 
 import React, { useMemo, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { Search, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,7 +36,7 @@ export default function MovieLibraryPage() {
 
   const handleViewMovie = (movie: Movie) => {
     console.log("Navigating to id:", movie.id);
-    router.push(`/movies/${String(movie.id).trim()}`);
+    router.push(`/movies/[id]?id=${movie.id}`);
   };
 
   const handleDeleteMovie = (movieId: string) => {
