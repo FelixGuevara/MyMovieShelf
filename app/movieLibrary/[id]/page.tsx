@@ -23,7 +23,7 @@ export default function MovieDetailsPage({ params }: PageProps) {
     <>
       {/* Visual proof on the page */}
       <div style={{ padding: 8, fontFamily: "monospace", color: "#475569" }}>
-        server params.id = <b>{id}</b>
+        server params.id = <b>{params?.id?.trim()}</b>
       </div>
       <MovieDetailsClient id={id} />
     </>
