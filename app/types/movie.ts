@@ -12,4 +12,5 @@ export interface Movie {
   director: string;
   date: string; // ISO or display string
   status: "completed" | "pending" | "failed";
+  posterUrl?: string; 
 }
