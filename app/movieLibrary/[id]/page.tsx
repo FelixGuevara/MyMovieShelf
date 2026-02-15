@@ -15,10 +15,10 @@ export default function MovieDetailsPage({ params }: PageProps) {
   console.log(">>> SERVER: [/movieLibrary/[id]] params =", params);
 
   const rawId = params?.id?.trim();
-  if (!rawId) {
-    notFound();
-  }
-  const id = decodeURIComponent(rawId);
+  //if (!rawId) {
+    //notFound();
+  //}
+  const id = "1";//decodeURIComponent(rawId);
   return (
     <>
       {/* Visual proof on the page */}
