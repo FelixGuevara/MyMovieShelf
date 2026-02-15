@@ -1,5 +1,5 @@
 // movieLibraryClient.tsx
-'use client';
+"use client";
 
 import React, { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";

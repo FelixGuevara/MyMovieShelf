@@ -1,11 +1,11 @@
 // app/movies/[id]/page.tsx
-import { notFound } from "next/navigation";
-import MovieDetailsClient from "./MovieDetailsClient";
+import MovieDetailsClient from "././MovieDetailsClient";
 
 export const dynamic = "force-dynamic";
 
-// app/movies/[id]/page.tsx
 export default function MovieDetailsPage({ params }: { params: { id: string } }) {
   const { id } = params;
-  return <div>Details for movie {id}</div>;
+  // Add this log to your server console (terminal) to verify params are present
+  console.log("Server params:", params);
+  return <MovieDetailsClient id={id} />;
 }

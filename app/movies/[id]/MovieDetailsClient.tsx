@@ -1,4 +1,4 @@
-// app/movieLibrary/[id]/MovieDetailsClient.tsx
+// app/movies/[id]/MovieDetailsClient.tsx
 "use client";
 
 import * as React from "react";
