@@ -36,7 +36,7 @@ export default function MovieLibraryPage() {
 
   const handleViewMovie = (movie: Movie) => {
     console.log("Navigating to id:", movie.id);
-    router.push(`/movieLibrary/${movie.id}`);
+    router.push(`/movieLibrary/${String(movie.id).trim()}`);
   };
 
   const handleDeleteMovie = (movieId: string) => {
