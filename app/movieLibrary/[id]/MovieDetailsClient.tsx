@@ -78,7 +78,6 @@ export default function MovieDetailsClient({ id }: { id: string }) {
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <MovieStatusBadge status={movie.status} />
             <Button variant="outline" onClick={handleEdit}>
               <Pencil className="mr-2 h-4 w-4" /> Edit
             </Button>
