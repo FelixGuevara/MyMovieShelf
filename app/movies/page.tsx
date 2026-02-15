@@ -1,4 +1,4 @@
-// app/movieLibrary/page.tsx
+// app/movies/page.tsx
 import { Suspense } from "react";
 import MovieLibraryClient from "./movieLibraryClient"; // <-- alias path to the root file
 

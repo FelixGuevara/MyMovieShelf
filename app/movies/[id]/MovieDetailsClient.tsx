@@ -52,14 +52,14 @@ export default function MovieDetailsClient({ id }: { id: string }) {
 
   const handleEdit = () => {
     toast.info(`Edit functionality for ${movie.title} will be implemented.`);
-    // Later: router.push(`/movieLibrary/${movie.id}/edit`)
+    // Later: router.push(`/movies/${movie.id}/edit`)
   };
 
   const handleDelete = () => {
     if (window.confirm(`Are you sure you want to delete ${movie.title}?`)) {
       deleteMovie(movie.id);
       toast.success(`${movie.title} has been deleted successfully.`);
-      router.push("/movieLibrary"); // ← return to your list page
+      router.push("/movies"); // ← return to your list page
     }
   };
 
