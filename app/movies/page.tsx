@@ -2,7 +2,7 @@
 import { Suspense } from "react";
 import MovieLibraryClient from "./movieLibraryClient"; // <-- alias path to the root file
 
-export default function MovieLibraryPage() {
+export default function MoviesPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* 12-column grid container */}

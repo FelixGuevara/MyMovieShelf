@@ -1,8 +1,8 @@
-// app/movieLibrary/[id]/page.tsx
+// app/movies/[id]/page.tsx
 import { notFound } from "next/navigation";
 import MovieDetailsClient from "./MovieDetailsClient";
 
-//export const dynamic = "force-dynamic";
+export const dynamic = "force-dynamic";
 
 
 type PageProps = { params: Record<string, string | undefined> };
