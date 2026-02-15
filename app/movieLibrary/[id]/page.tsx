@@ -1,26 +1,18 @@
 // app/movieLibrary/[id]/page.tsx
-import MovieDetailsClient from "./MovieDetailsClient";
 import { notFound } from "next/navigation";
+import MovieDetailsClient from "./MovieDetailsClient";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
-type PageProps = { params: { id: string } };
+type PageProps = { params: { id?: string } };
 
 export default function MovieDetailsPage({ params }: PageProps) {
-  // If you really want to guard bad/empty ids:
- // if (!params.id || params.id.trim() === "") {
-    //notFound(); // throws and renders the 404 page
-  //}
-  console.log("[/movieLibrary/[id]] params:", params);
+  // This log appears in the **terminal** where you run `npm run dev` (or in Vercel logs in prod)
+  console.log(">>> SERVER: [/movieLibrary/[id]] params =", params);
 
   const rawId = params?.id;
-
-  console.log("MovieDetailsPage received id:", params.id);
-
-  console.log("MovieDetailsPage received rawId:", rawId);
-const id = decodeURIComponent(rawId);
-  return <MovieDetailsClient id={id} />;
-
-
-  //return <MovieDetailsClient id={decodeURIComponent(params.id)} />;
+  if (!rawId || rawId.trim() === "") {
+    notFound();
+  }
+  return <MovieDetailsClient id={decodeURIComponent("1")} />;
 }
