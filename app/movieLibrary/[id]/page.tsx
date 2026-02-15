@@ -1,5 +1,6 @@
 // app/movieLibrary/[id]/page.tsx
 import { notFound } from "next/navigation";
+import { headers } from "next/headers"; 
 import MovieDetailsClient from "./MovieDetailsClient";
 
 export const dynamic = "force-dynamic";
@@ -7,12 +8,24 @@ export const dynamic = "force-dynamic";
 type PageProps = { params: { id?: string } };
 
 export default function MovieDetailsPage({ params }: PageProps) {
-  // This log appears in the **terminal** where you run `npm run dev` (or in Vercel logs in prod)
+  // 🔎 This will throw if this file is accidentally a Client Component
+  const h = headers();
+
+  // Server log: MUST appear in the terminal running `npm run dev`
   console.log(">>> SERVER: [/movieLibrary/[id]] params =", params);
 
-  const rawId = params?.id;
-  if (!rawId || rawId.trim() === "") {
-    //notFound();
+  const rawId = params?.id?.trim();
+  if (!rawId) {
+    notFound();
   }
-  return <MovieDetailsClient id={decodeURIComponent("1")} />;
+  const id = decodeURIComponent(rawId);
+  return (
+    <>
+      {/* Visual proof on the page */}
+      <div style={{ padding: 8, fontFamily: "monospace", color: "#475569" }}>
+        server params.id = <b>{id}</b>
+      </div>
+      <MovieDetailsClient id={id} />
+    </>
+  );
 }
