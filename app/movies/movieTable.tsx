@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { MoreHorizontal } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -118,9 +120,16 @@ export function MovieTable({ movies, onEditMovie, onViewMovie, onDeleteMovie }: 
                         <DropdownMenuItem onClick={() => handleAction('edit', movie)}>
                           Edit Movie
                         </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleAction('view', movie)}>
+
+                        <DropdownMenuItem
+                          onSelect={(e) => {
+                            e.preventDefault(); // optional: prevents default menu behavior if needed
+                            handleAction('view', movie);
+                          }}
+                        >
                           View Movie
                         </DropdownMenuItem>
+
                         <DropdownMenuItem
                           className="text-red-600"
                           onClick={() => handleAction('delete', movie)}
