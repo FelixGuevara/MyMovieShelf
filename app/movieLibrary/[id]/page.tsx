@@ -12,5 +12,14 @@ export default function MovieDetailsPage({ params }: PageProps) {
     //notFound(); // throws and renders the 404 page
   //}
 
-  return <MovieDetailsClient id={decodeURIComponent(params.id)} />;
+  const rawId = params?.id;
+
+  console.log("MovieDetailsPage received id:", params.id);
+
+  console.log("MovieDetailsPage received rawId:", rawId);
+const id = decodeURIComponent(rawId);
+  return <MovieDetailsClient id={id} />;
+
+
+  //return <MovieDetailsClient id={decodeURIComponent(params.id)} />;
 }
