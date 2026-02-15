@@ -1,17 +1,16 @@
+// app/movieLibrary/[id]/page.tsx
 import MovieDetailsClient from "./MovieDetailsClient";
 import { notFound } from "next/navigation";
 
-export default function MovieDetailsPage({
-  params,
-}: {
-  params: { id?: string };
-}) {
-  // params should be populated here ONLY if this file is a Server Component.
-  if (!params?.id) {
-    // Optional: show 404 page if id is missing
-    notFound();
+export const dynamic = 'force-dynamic';
+
+type PageProps = { params: { id: string } };
+
+export default function MovieDetailsPage({ params }: PageProps) {
+  // If you really want to guard bad/empty ids:
+  if (!params.id || params.id.trim() === "") {
+    notFound(); // throws and renders the 404 page
   }
 
-  // Pass the id down to your Client Component
   return <MovieDetailsClient id={decodeURIComponent(params.id)} />;
 }
