@@ -19,6 +19,7 @@ export default function MovieDetailsPage({ params }: PageProps) {
     //notFound();
   //}
   const id = "1";//decodeURIComponent(rawId);
+  console.log(">>> SERVER: [/movieLibrary/[id]] params =", id);
   return (
     <>
       {/* Visual proof on the page */}
