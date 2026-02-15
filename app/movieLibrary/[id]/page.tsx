@@ -12,7 +12,7 @@ export default function MovieDetailsPage({ params }: PageProps) {
 
   const rawId = params?.id;
   if (!rawId || rawId.trim() === "") {
-    notFound();
+    //notFound();
   }
   return <MovieDetailsClient id={decodeURIComponent("1")} />;
 }
