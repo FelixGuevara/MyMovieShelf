@@ -1,13 +1,13 @@
-// app/movies/[id]/MovieDetailsClient.tsx
+// app/movieLibrary/[id]/MovieDetailsClient.tsx
 "use client";
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Pencil, Trash2 } from "lucide-react";
-import { Button } from "../../components/ui/button";
-import { MovieStatusBadge } from "../../components/MovieStatusBadge";
-import { useMovies } from "../../contexts/MovieProvider";
-import type { Movie } from "../../types/movie";
+import { Button } from "@/components/ui/button";
+import { MovieStatusBadge } from "@/components/MovieStatusBadge";
+import { useMovies } from "@/contexts/MovieProvider";
+import type { Movie } from "@/types/movie";
 import { toast } from "sonner";
 
 function formatDate(value: string) {
@@ -26,12 +26,13 @@ function DetailItem({ label, value }: { label: string; value: React.ReactNode })
 
 export default function MovieDetailsClient({ id }: { id: string }) {
   const router = useRouter();
-  const { getById, deleteMovie } = useMovies();
+  const { movies, getById, deleteMovie } = useMovies();
 
+  // Helpful diagnostics while wiring things up
+  console.log("Details received id:", id);
+  console.log("Available ids:", movies.map((m) => m.id));
 
-console.log("Details received id:", id);
-
-  const movie = getById(id);
+  const movie = getById(String(id).trim());
 
   if (!movie) {
     return (
@@ -50,17 +51,15 @@ console.log("Details received id:", id);
   }
 
   const handleEdit = () => {
-    // For now, mimic your current UX
     toast.info(`Edit functionality for ${movie.title} will be implemented.`);
-    // You can later navigate to /movies/${id}/edit if you add that route.
+    // Later: router.push(`/movieLibrary/${movie.id}/edit`)
   };
 
   const handleDelete = () => {
     if (window.confirm(`Are you sure you want to delete ${movie.title}?`)) {
-         console.log("Details page received id:", movie.id);
       deleteMovie(movie.id);
       toast.success(`${movie.title} has been deleted successfully.`);
-      router.push("/movies");
+      router.push("/movieLibrary"); // ← return to your list page
     }
   };
 
@@ -80,6 +79,7 @@ console.log("Details received id:", id);
             </p>
           </div>
           <div className="flex items-center gap-2">
+            <MovieStatusBadge status={movie.status} />
             <Button variant="outline" onClick={handleEdit}>
               <Pencil className="mr-2 h-4 w-4" /> Edit
             </Button>
@@ -100,8 +100,6 @@ console.log("Details received id:", id);
           <DetailItem label="Date Added" value={formatDate(movie.date)} />
           <DetailItem label="Status" value={<MovieStatusBadge status={movie.status} />} />
         </div>
-
-        {/* Future sections: poster, synopsis, cast, ratings, links... */}
       </div>
     </div>
   );
