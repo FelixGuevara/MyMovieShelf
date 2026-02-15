@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { MovieStatusBadge } from "@/components/MovieStatusBadge";
 import { useMovies } from "@/contexts/MovieProvider";
 import { toast } from "sonner";
+import Image from "next/image";
 
 import {
   Dialog,
@@ -283,17 +284,49 @@ export default function MovieDetailsClient({ id }: { id: string }) {
           </div>
         </div>
 
-        {/* Meta grid */}
-        <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <DetailItem label="Title" value={movie.title} />
-          <DetailItem label="Release Year" value={movie.releaseYear} />
-          <DetailItem label="Run Time" value={movie.runTime} />
-          <DetailItem label="Genre" value={movie.genre} />
-          <DetailItem label="Director" value={movie.director} />
-          <DetailItem label="Added By (ID)" value={`${movie.user.name} (${movie.user.id})`} />
-          <DetailItem label="Date Added" value={formatDate(movie.date)} />
-          <DetailItem label="Status" value={<MovieStatusBadge status={movie.status} />} />
+        {/* Poster (left) + Meta grid (right) */}
+        <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-12">
+          {/* Poster column */}
+          <div className="lg:col-span-4">
+            <div className="relative aspect-[9/10] w-full overflow-hidden rounded-md border border-gray-200 bg-gray-100">
+              {movie.posterUrl ? (
+                <Image
+                  src={movie.posterUrl}
+                  alt={`${movie.title} poster`}
+                  fill
+                  sizes="(max-width: 1024px) 50vw, 33vw"
+                  className="object-cover"
+                  priority
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center text-gray-400">
+                  No Image
+                </div>
+              )}
+            </div>
+
+            <div className="mt-3 text-xs text-gray-600 leading-tight space-y-1">
+              <div><span className="font-semibold text-gray-900">Year:</span> {movie.releaseYear}</div>
+              <div><span className="font-semibold text-gray-900">Runtime:</span> {movie.runTime}</div>
+              <div><span className="font-semibold text-gray-900">Genre:</span> {movie.genre}</div>
+            </div>
+          </div>
+
+          {/* Meta grid column */}
+          <div className="lg:col-span-8">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <DetailItem label="Title" value={movie.title} />
+              <DetailItem label="Release Year" value={movie.releaseYear} />
+              <DetailItem label="Run Time" value={movie.runTime} />
+              <DetailItem label="Genre" value={movie.genre} />
+              <DetailItem label="Director" value={movie.director} />
+              <DetailItem label="Added By (ID)" value={`${movie.user.name} (${movie.user.id})`} />
+              <DetailItem label="Date Added" value={formatDate(movie.date)} />
+              <DetailItem label="Status" value={<MovieStatusBadge status={movie.status} />} />
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   );

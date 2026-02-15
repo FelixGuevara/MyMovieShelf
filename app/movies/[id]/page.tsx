@@ -13,9 +13,9 @@ export default async function MovieDetailsPage({
   const { id } = await params; // unwrap the promise
   console.log("[movies/[id]/page] params:", { id });
     return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="bg-gray-50">
       {/* 12-column grid container */}
-      <div className="mx-auto max-w-6xl px-4 py-6 grid grid-cols-12 gap-6">
+      <div className="mx-auto max-w-6xl px-4 py-6">
         {/* Full-width on all breakpoints */}
         <section className="col-span-12">
           <Suspense fallback={<p>Loading…</p>}>

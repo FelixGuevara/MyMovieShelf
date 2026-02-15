@@ -116,14 +116,14 @@ export function MovieTable({ movies, onViewMovie }: MovieTableProps) {
                 <Button
                   type="button"
                   variant="outline"
-                  className="cursor-pointer border-blue-300 text-blue-700 hover:bg-blue-50"
+                  className="cursor-pointer bg-[rgb(0,76,157)] text-white hover:bg-blue-900 focus-visible:ring-2 focus-visible:ring-blue-700"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     onViewMovie(movie);
                   }}
                 >
-                  <Eye className="mr-2 h-4 w-4 text-blue-700" />
+                  <Eye className="mr-2 h-4 w-4 text-white" />
                   View
                 </Button>
                 </td>

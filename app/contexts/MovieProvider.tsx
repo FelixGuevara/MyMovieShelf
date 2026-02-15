@@ -25,6 +25,7 @@ const initialMovies: Movie[] = [
     director: "Francis Coppola",
     date: "2024-01-20",
     status: "completed",
+    posterUrl: "/posters/godfather.jpg",
   },
   {
     id: "2",
@@ -36,6 +37,7 @@ const initialMovies: Movie[] = [
     director: "Steven Spielberg",
     date: "2024-01-19",
     status: "pending",
+    posterUrl: "/posters/schindlerlist.jpg",
   },
   {
     id: "3",
@@ -47,6 +49,7 @@ const initialMovies: Movie[] = [
     director: "Quentin Tarantino",
     date: "2024-01-18",
     status: "completed",
+    posterUrl: "/posters/pulpfiction.jpg",
   },
   {
     id: "4",
@@ -58,6 +61,7 @@ const initialMovies: Movie[] = [
     director: "Christopher Nolan",
     date: "2024-01-17",
     status: "pending",
+    posterUrl: "/posters/darkknight.jpg",
   },
   {
     id: "5",
@@ -69,6 +73,7 @@ const initialMovies: Movie[] = [
     director: "Michael Curtiz",
     date: "2024-01-16",
     status: "completed",
+    posterUrl: "/posters/casablanca.jpg",
   },
   {
     id: "6",
@@ -80,6 +85,7 @@ const initialMovies: Movie[] = [
     director: "Stanley Kubrick",
     date: "2024-01-13",
     status: "pending",
+    posterUrl: "/posters/spaceodyssey.jpg",
   },
   {
     id: "7",
@@ -91,6 +97,7 @@ const initialMovies: Movie[] = [
     director: "Martin Scorsese",
     date: "2025-01-13",
     status: "completed",
+    posterUrl: "/posters/goodfellas.jpg",
   },
   {
     id: "8",
@@ -102,6 +109,7 @@ const initialMovies: Movie[] = [
     director: "Steven Spielberg",
     date: "2025-06-13",
     status: "pending",
+    posterUrl: "/posters/savingprivateryan.jpg",
   },
 ];
 
