@@ -38,8 +38,12 @@ export default function MovieLibraryPage() {
   const handleViewMovie = (movie: Movie) => {
     console.log("Navigating to id:", movie.id);
     
+
     const id = String(movie.id);
-    router.push(`/movies/${encodeURIComponent(id)}`);
+    const href = `/movies/${encodeURIComponent(id)}`;
+    console.log("Pushing to:", href);
+    router.push(href);
+    setTimeout(() => console.log("Now at:", window.location.pathname), 50);
   };
 
   const handleDeleteMovie = (movieId: string) => {

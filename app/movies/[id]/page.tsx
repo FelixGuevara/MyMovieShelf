@@ -1,5 +1,5 @@
 // app/movies/[id]/page.tsx
-import MovieDetailsClient from "././MovieDetailsClient";
+import MovieDetailsClient from "./MovieDetailsClient";
 
 export const dynamic = "force-dynamic";
 
