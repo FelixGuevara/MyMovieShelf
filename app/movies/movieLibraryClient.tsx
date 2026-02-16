@@ -84,7 +84,8 @@ export default function MovieLibraryPage() {
             <h1 className="text-2xl text-gray-900 mb-2">Greatest Movie Collection</h1>
             <p className="text-gray-600">Build and manage your personalized movie library</p>
           </div>
-          <Button onClick={handleAddNewMovie} className="bg-blue-600 hover:bg-blue-700 text-white">
+          <Button onClick={handleAddNewMovie} 
+          className="cursor-pointer bg-[rgb(0,76,157)] text-white hover:bg-blue-900 focus-visible:ring-2 focus-visible:ring-blue-700">
             <Plus className="w-4 h-4 mr-2" />
             Add New Movie
           </Button>

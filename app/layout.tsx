@@ -4,6 +4,7 @@ import "./globals.css";
 import Image from "next/image"; 
 import Link from "next/link";
 import { MovieProvider } from "./contexts/MovieProvider";
+import { UserProvider } from "./contexts/UserProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -63,7 +64,9 @@ export default function RootLayout({
 
       {/* Page content wrapped with MovieProvider */}
         <MovieProvider>
-          <main className="flex-grow">{children}</main>
+          <UserProvider>
+            <main className="flex-grow">{children}</main>
+          </UserProvider>
         </MovieProvider>
 
 

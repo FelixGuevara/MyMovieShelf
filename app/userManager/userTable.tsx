@@ -1,49 +1,74 @@
+'use client';
+
 import React from 'react';
-import { MoreHorizontal } from 'lucide-react';
+import { Pencil, Trash2 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Badge } from '../components/ui/badge';
+import { UserEditDialog, EditableUser } from './editUserModal';
+import { toast } from 'sonner';
+
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '../components/ui/dropdown-menu';
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  dateAdded: string;
-  status: 'Active' | 'Inactive';
-  lastLogin: string;
-}
+import type { User } from '@/types/user';
+// Ensure this path matches your project (contexts vs context)
+import { useUsers } from '@/contexts/UserProvider';
 
-interface UserTableProps {
-  users: User[];
-  onEditUser: (user: User) => void;
-  onViewUser: (user: User) => void;
-  onResetPassword: (user: User) => void;
-  onDeleteUser: (userId: string) => void;
-}
+export function UserTable() {
+  const {
+    filteredUsers: users,
+    viewUser,            // still available if you later add a view button
+    resetPassword,       // still available if you later add a reset button
+    deleteUser,
+    editUser,
+  } = useUsers();
 
-export function UserTable({ users, onEditUser, onViewUser, onResetPassword, onDeleteUser }: UserTableProps) {
-  const handleAction = (action: string, user: User) => {
-    switch (action) {
-      case 'edit':
-        onEditUser(user);
-        break;
-      case 'view':
-        onViewUser(user);
-        break;
-      case 'reset':
-        onResetPassword(user);
-        break;
-      case 'delete':
-        if (window.confirm(`Are you sure you want to delete ${user.name}?`)) {
-          onDeleteUser(user.id);
-        }
-        break;
+  const [editOpen, setEditOpen] = React.useState(false);
+  const [editing, setEditing] = React.useState<User | null>(null);
+
+  const [isDeleteOpen, setIsDeleteOpen] = React.useState(false);
+  const [deletingUser, setDeletingUser] = React.useState<User | null>(null);
+
+  const handleEdit = (user: User) => {
+    setEditing(user);
+    setEditOpen(true);
+  };
+
+  const askDelete = (user: User) => {
+    setDeletingUser(user);
+    setIsDeleteOpen(true);
+  };
+
+  const confirmDelete = () => {
+    if (!deletingUser) return;
+    deleteUser(deletingUser.id);
+    toast.success(`${deletingUser.name} has been deleted successfully.`);
+    setIsDeleteOpen(false);
+    setDeletingUser(null);
+  };
+
+  const onSaveEdit = async (u: EditableUser) => {
+    try {
+      if (!editing) return;
+
+      const updated: User = {
+        ...editing,
+        name: u.name ?? editing.name,
+        email: u.email ?? editing.email,
+        role: (u.role ?? editing.role) as User['role'],
+        status: (u.status ?? editing.status) as User['status'],
+      };
+
+      await Promise.resolve(editUser(updated));
+      setEditOpen(false);
+    } catch (e) {
+      toast.error('Failed to save changes.');
+      throw e;
     }
   };
 
@@ -78,7 +103,7 @@ export function UserTable({ users, onEditUser, onViewUser, onResetPassword, onDe
                   <div className="text-gray-900">{user.dateAdded}</div>
                 </td>
                 <td className="py-4 px-4">
-                  <Badge 
+                  <Badge
                     variant={user.status === 'Active' ? 'default' : 'secondary'}
                     className={user.status === 'Active' ? 'bg-gray-900 text-white' : 'bg-gray-200 text-gray-700'}
                   >
@@ -88,37 +113,79 @@ export function UserTable({ users, onEditUser, onViewUser, onResetPassword, onDe
                 <td className="py-4 px-4">
                   <div className="text-gray-600">{user.lastLogin}</div>
                 </td>
-                <td className="py-4 px-4 relative">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" className="h-8 w-8 p-0">
-                        <MoreHorizontal className="h-4 w-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => handleAction('edit', user)}>
-                        Edit User
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => handleAction('view', user)}>
-                        View Details
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => handleAction('reset', user)}>
-                        Reset Password
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        className="text-red-600"
-                        onClick={() => handleAction('delete', user)}
-                      >
-                        Delete User
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                <td className="py-4 px-4">
+                  <div className="flex items-center gap-2">
+                    {/* Edit (pencil) */}
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="cursor-pointer bg-[rgb(0,76,157)] text-white hover:bg-blue-900 focus-visible:ring-2 focus-visible:ring-blue-700"
+                      onClick={() => handleEdit(user)}
+                      aria-label={`Edit ${user.name}`}
+                      title="Edit">
+                      <Pencil className="h-4 w-4 text-white"  />
+                    </Button>
+
+                    {/* Delete (trash) */}
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="cursor-pointer bg-[rgb(0,76,157)] text-white hover:bg-blue-900 focus-visible:ring-2 focus-visible:ring-blue-700"
+                      onClick={() => askDelete(user)}
+                      aria-label={`Delete ${user.name}`}
+                      title="Delete">
+                      <Trash2 className="h-4 w-4 text-white" />
+                    </Button>
+                  </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      <UserEditDialog
+        open={editOpen}
+        onOpenChange={setEditOpen}
+        user={
+          editing
+            ? {
+                id: editing.id,
+                name: editing.name,
+                email: editing.email,
+                role: editing.role,
+                status: editing.status,
+              }
+            : null
+        }
+        onSave={onSaveEdit}
+      />
+
+     <Dialog open={isDeleteOpen} onOpenChange={setIsDeleteOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>
+              {`Delete “${deletingUser?.name ?? 'this user'}”?`}
+            </DialogTitle>
+          </DialogHeader>
+          <p className="text-sm text-gray-600">
+            This action cannot be undone. This will permanently remove the user from your system.
+          </p>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsDeleteOpen(false)} type="button">
+              Cancel
+            </Button>
+            <Button
+              className="cursor-pointer bg-red-600 text-white hover:bg-red-700"
+              onClick={confirmDelete}
+              type="button"
+            >
+              Delete
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
+
   );
 }

@@ -13,7 +13,6 @@ type MovieContextValue = {
   setAll: React.Dispatch<React.SetStateAction<Movie[]>>;
 };
 
-// You can seed with your mock data:
 const initialMovies: Movie[] = [
   {
     id: "1",
