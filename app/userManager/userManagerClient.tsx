@@ -49,8 +49,7 @@ export default function UserManagerPage() {
           </div>
           <Button
             onClick={handleAddNewUser}
-            className="cursor-pointer bg-[rgb(0,76,157)] text-white hover:bg-blue-900 focus-visible:ring-2 focus-visible:ring-blue-700"
-                     
+            className="cursor-pointer bg-[rgb(0,76,157)] text-white hover:bg-blue-900 focus-visible:ring-2 focus-visible:ring-blue-700"                 
           >
             <Plus className="h-4 w-4 text-white mr-2" />
             Add New User
