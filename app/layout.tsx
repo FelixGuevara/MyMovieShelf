@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { MovieProvider } from "./contexts/MovieProvider";
 import { UserProvider } from "./contexts/UserProvider";
+import { AuthProvider } from '@/contexts/AuthProvider';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -63,11 +64,15 @@ export default function RootLayout({
 
 
       {/* Page content wrapped with MovieProvider */}
-        <MovieProvider>
-          <UserProvider>
-            <main className="flex-grow">{children}</main>
-          </UserProvider>
-        </MovieProvider>
+
+        <AuthProvider>
+          <MovieProvider>
+            <UserProvider>
+              <main className="flex-grow">{children}</main>
+            </UserProvider>
+          </MovieProvider>
+        </AuthProvider>
+
 
 
       {/* Footer */}
